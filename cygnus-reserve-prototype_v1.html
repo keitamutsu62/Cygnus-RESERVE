@@ -562,13 +562,142 @@ html, body {
 @keyframes oB { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
 .oa { transform-origin: 40px 40px; animation: oA 26s linear infinite; }
 .ob { transform-origin: 40px 40px; animation: oB 34s linear infinite; }
+
+/* ── LOGIN / REGISTER ── */
+.auth-screen {
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  padding: 48px 32px; gap: 0;
+  background: var(--bg);
+}
+.auth-logo { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-bottom: 48px; }
+.auth-logo-mark { opacity: 0.9; }
+.auth-logo-name { font-family: 'Josefin Sans',sans-serif; font-weight: 100; font-size: 18px; letter-spacing: 0.4em; color: var(--text); }
+.auth-logo-sub { font-family: 'Josefin Sans',sans-serif; font-weight: 100; font-size: 10px; letter-spacing: 0.22em; color: var(--hf); }
+.auth-tagline { font-family: 'Cormorant Garamond',serif; font-style: italic; font-size: 13px; color: var(--muted); letter-spacing: 0.05em; margin-bottom: 40px; }
+.auth-btn {
+  width: 100%; padding: 15px 20px;
+  border-radius: 2px; border: none; cursor: pointer;
+  font-family: 'Josefin Sans',sans-serif; font-weight: 200;
+  font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  transition: opacity 0.15s;
+  margin-bottom: 10px;
+}
+.auth-btn:active { opacity: 0.8; }
+.auth-btn-line { background: #06C755; color: #fff; }
+.auth-btn-google { background: var(--bg3); color: var(--text); border: 1px solid var(--border); }
+.auth-divider { display: flex; align-items: center; gap: 12px; width: 100%; margin: 16px 0; }
+.auth-divider-line { flex: 1; height: 1px; background: var(--border); }
+.auth-divider-text { font-size: 10px; letter-spacing: 0.12em; color: var(--muted); font-family: 'Josefin Sans',sans-serif; }
+.auth-field { width: 100%; margin-bottom: 12px; }
+.auth-field-label { font-size: 10px; letter-spacing: 0.15em; color: var(--muted); font-family: 'Josefin Sans',sans-serif; margin-bottom: 6px; }
+.auth-field-input {
+  width: 100%; padding: 13px 14px;
+  background: var(--bg3); border: 1px solid var(--border); border-radius: 2px;
+  color: var(--text); font-size: 14px; font-family: 'Zen Kaku Gothic New',sans-serif;
+  outline: none;
+}
+.auth-field-input:focus { border-color: var(--gold); }
+.auth-btn-primary { background: var(--gold); color: #1c1a18; margin-top: 4px; }
+.auth-switch { font-size: 11px; color: var(--muted); text-align: center; margin-top: 20px; line-height: 1.8; }
+.auth-switch span { color: var(--hf); text-decoration: underline; cursor: pointer; }
 </style>
 </head>
 <body>
 <div class="app">
 
+<!-- ===== LOGIN ===== -->
+<div class="screen active auth-screen" id="s-login">
+  <div class="auth-logo">
+    <svg class="auth-logo-mark" width="48" height="48" viewBox="0 0 80 80" fill="none">
+      <ellipse class="oa" cx="40" cy="40" rx="28" ry="14" transform="rotate(18 40 40)" stroke="#d4b8b0" stroke-width="4" opacity="0.85"/>
+      <ellipse class="ob" cx="40" cy="40" rx="28" ry="14" transform="rotate(-18 40 40)" stroke="#c8a882" stroke-width="4" opacity="0.5"/>
+    </svg>
+    <div class="auth-logo-name">CYGNUS</div>
+    <div class="auth-logo-sub">RESERVE</div>
+  </div>
+  <div class="auth-tagline">Your craft belongs to you.</div>
+
+  <button class="auth-btn auth-btn-line" onclick="loginWith('line')">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect width="18" height="18" rx="4" fill="white" fill-opacity="0.2"/><path d="M9 3.5C5.96 3.5 3.5 5.52 3.5 8C3.5 10.22 5.54 12.08 8.3 12.42L9 13.5L9.7 12.42C12.46 12.08 14.5 10.22 14.5 8C14.5 5.52 12.04 3.5 9 3.5Z" fill="white"/></svg>
+    LINEでログイン
+  </button>
+  <button class="auth-btn auth-btn-google" onclick="loginWith('google')">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M15.5 8.18c0-.57-.05-1.12-.14-1.64H8v3.1h4.2a3.6 3.6 0 01-1.56 2.36v1.96h2.52C14.6 12.6 15.5 10.56 15.5 8.18z" fill="#4285F4"/><path d="M8 16c2.1 0 3.86-.7 5.15-1.88l-2.52-1.96c-.7.47-1.6.74-2.63.74-2.02 0-3.73-1.36-4.34-3.2H1.06v2.02A7.99 7.99 0 008 16z" fill="#34A853"/><path d="M3.66 9.7A4.8 4.8 0 013.4 8c0-.59.1-1.16.26-1.7V4.28H1.06A8 8 0 000 8c0 1.3.31 2.52.86 3.62l2.8-1.92z" fill="#FBBC05"/><path d="M8 3.18c1.14 0 2.16.39 2.96 1.16l2.22-2.22C11.86.79 10.1 0 8 0A8 8 0 001.06 4.28l2.6 2.02C4.27 4.54 5.98 3.18 8 3.18z" fill="#EA4335"/></svg>
+    Googleでログイン
+  </button>
+
+  <div class="auth-divider">
+    <div class="auth-divider-line"></div>
+    <div class="auth-divider-text">または</div>
+    <div class="auth-divider-line"></div>
+  </div>
+
+  <div class="auth-field">
+    <div class="auth-field-label">メールアドレス</div>
+    <input class="auth-field-input" type="email" placeholder="example@email.com"/>
+  </div>
+  <div class="auth-field">
+    <div class="auth-field-label">パスワード</div>
+    <input class="auth-field-input" type="password" placeholder="••••••••"/>
+  </div>
+  <button class="auth-btn auth-btn-primary" onclick="loginWith('email')">ログイン</button>
+
+  <div class="auth-switch">
+    アカウントをお持ちでない方は<br>
+    <span onclick="goTo('s-register')">新規登録はこちら</span>
+  </div>
+</div>
+
+<!-- ===== REGISTER ===== -->
+<div class="screen auth-screen" id="s-register">
+  <div class="auth-logo">
+    <svg class="auth-logo-mark" width="48" height="48" viewBox="0 0 80 80" fill="none">
+      <ellipse class="oa" cx="40" cy="40" rx="28" ry="14" transform="rotate(18 40 40)" stroke="#d4b8b0" stroke-width="4" opacity="0.85"/>
+      <ellipse class="ob" cx="40" cy="40" rx="28" ry="14" transform="rotate(-18 40 40)" stroke="#c8a882" stroke-width="4" opacity="0.5"/>
+    </svg>
+    <div class="auth-logo-name">CYGNUS</div>
+    <div class="auth-logo-sub">RESERVE</div>
+  </div>
+
+  <button class="auth-btn auth-btn-line" onclick="loginWith('line')">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect width="18" height="18" rx="4" fill="white" fill-opacity="0.2"/><path d="M9 3.5C5.96 3.5 3.5 5.52 3.5 8C3.5 10.22 5.54 12.08 8.3 12.42L9 13.5L9.7 12.42C12.46 12.08 14.5 10.22 14.5 8C14.5 5.52 12.04 3.5 9 3.5Z" fill="white"/></svg>
+    LINEで登録
+  </button>
+  <button class="auth-btn auth-btn-google" onclick="loginWith('google')">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M15.5 8.18c0-.57-.05-1.12-.14-1.64H8v3.1h4.2a3.6 3.6 0 01-1.56 2.36v1.96h2.52C14.6 12.6 15.5 10.56 15.5 8.18z" fill="#4285F4"/><path d="M8 16c2.1 0 3.86-.7 5.15-1.88l-2.52-1.96c-.7.47-1.6.74-2.63.74-2.02 0-3.73-1.36-4.34-3.2H1.06v2.02A7.99 7.99 0 008 16z" fill="#34A853"/><path d="M3.66 9.7A4.8 4.8 0 013.4 8c0-.59.1-1.16.26-1.7V4.28H1.06A8 8 0 000 8c0 1.3.31 2.52.86 3.62l2.8-1.92z" fill="#FBBC05"/><path d="M8 3.18c1.14 0 2.16.39 2.96 1.16l2.22-2.22C11.86.79 10.1 0 8 0A8 8 0 001.06 4.28l2.6 2.02C4.27 4.54 5.98 3.18 8 3.18z" fill="#EA4335"/></svg>
+    Googleで登録
+  </button>
+
+  <div class="auth-divider">
+    <div class="auth-divider-line"></div>
+    <div class="auth-divider-text">または</div>
+    <div class="auth-divider-line"></div>
+  </div>
+
+  <div class="auth-field">
+    <div class="auth-field-label">お名前</div>
+    <input class="auth-field-input" type="text" placeholder="山田 花子"/>
+  </div>
+  <div class="auth-field">
+    <div class="auth-field-label">メールアドレス</div>
+    <input class="auth-field-input" type="email" placeholder="example@email.com"/>
+  </div>
+  <div class="auth-field">
+    <div class="auth-field-label">パスワード</div>
+    <input class="auth-field-input" type="password" placeholder="••••••••"/>
+  </div>
+  <button class="auth-btn auth-btn-primary" onclick="loginWith('email')">アカウントを作成</button>
+
+  <div class="auth-switch">
+    すでにアカウントをお持ちの方は<br>
+    <span onclick="goTo('s-login')">ログインはこちら</span>
+  </div>
+</div>
+
 <!-- ===== 1. 条件設定 ===== -->
-<div class="screen active" id="s1">
+<div class="screen" id="s1">
   <div class="top-bar">
     <div class="logo-mark">
       <svg width="22" height="22" viewBox="0 0 80 80" fill="none">
@@ -1246,7 +1375,12 @@ html, body {
 </div>
 
 <script>
-var current = 's1';
+var current = 's-login';
+
+function loginWith(method) {
+  // デモ：認証成功として s1 へ遷移
+  goTo('s1');
+}
 
 function goTo(id) {
   if (current === id) return;
