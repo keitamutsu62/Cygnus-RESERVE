@@ -602,6 +602,42 @@ html, body {
 .auth-btn-primary { background: var(--gold); color: #1c1a18; margin-top: 4px; }
 .auth-switch { font-size: 11px; color: var(--muted); text-align: center; margin-top: 20px; line-height: 1.8; }
 .auth-switch span { color: var(--hf); text-decoration: underline; cursor: pointer; }
+
+/* 指名料チップ */
+.nomination-chip {
+  display: inline-flex; align-items: center;
+  font-family: 'Josefin Sans', sans-serif; font-weight: 100;
+  font-size: 9px; letter-spacing: 0.12em;
+  padding: 3px 9px; border-radius: 20px;
+  border: 1px solid rgba(200,168,130,0.35);
+  color: var(--gold); background: rgba(200,168,130,0.06);
+  margin-top: 6px;
+}
+
+/* フォロー中状態 */
+.stylist-follow.followed {
+  background: transparent;
+  border-color: rgba(232,228,220,0.15);
+  color: rgba(232,228,220,0.4);
+}
+
+/* s3 公開作品グリッド */
+.works-mini-grid {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: 2px;
+}
+.works-mini-card {
+  aspect-ratio: 3/4; position: relative;
+  overflow: hidden; cursor: pointer; border-radius: 2px;
+}
+.works-mini-overlay {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 18px 8px 8px;
+  background: linear-gradient(transparent, rgba(28,26,24,0.9));
+}
+.works-mini-title {
+  font-size: 10px; font-weight: 400; color: var(--text);
+}
 </style>
 </head>
 <body>
@@ -979,13 +1015,46 @@ html, body {
         <div class="stylist-name">田中 彩花</div>
         <div class="stylist-meta">Hair Studio LUNA 渋谷店 · スタイリスト歴8年</div>
         <div style="font-size:11px;color:var(--muted);margin-top:2px;">フォロワー 1,240人</div>
+        <div class="nomination-chip">指名料 ¥1,500</div>
       </div>
-      <div class="stylist-follow">フォロー</div>
+      <div class="stylist-follow" id="followBtn" onclick="toggleFollow(event)">フォロー</div>
     </div>
 
     <div class="detail-section">
+      <!-- [STUDIO API] GET /api/studio/stylist/{id} → bio -->
       <div style="font-size:13px;color:var(--muted);line-height:1.9;margin-bottom:16px;">
-        骨格に合わせたカットで、毎日のスタイリングが楽になるショートボブ。前下がりのラインで小顔効果も。カラーは透け感のあるグレージュがオススメです。
+        骨格に合わせた似合わせカットが得意です。毎日のスタイリングが楽になるデザインを心がけています。ダメージレスなカラーとトリートメントケアも大切にしています。
+      </div>
+    </div>
+
+    <div class="detail-section">
+      <!-- [STUDIO API] GET /api/studio/stylist/{id} → genre_tags -->
+      <div class="detail-label">得意メニュー</div>
+      <div class="tag-list">
+        <div class="style-tag">似合わせカット</div>
+        <div class="style-tag">ショートボブ</div>
+        <div class="style-tag">グレージュカラー</div>
+        <div class="style-tag">ダメージレスカラー</div>
+        <div class="style-tag">トリートメント</div>
+      </div>
+    </div>
+
+    <div class="detail-section" style="padding-bottom:8px;">
+      <!-- [STUDIO API] GET /api/studio/works?stylist_id={id}&published=true&limit=6 -->
+      <div class="detail-label">スタイリストの作品</div>
+      <div class="works-mini-grid">
+        <div class="works-mini-card grad-1">
+          <div class="hair-icon" style="opacity:0.15;"><svg viewBox="0 0 100 120" fill="none"><ellipse cx="50" cy="28" rx="20" ry="22" fill="#c8a882" opacity="0.6"/><path d="M20 65 Q22 45 50 42 Q78 45 80 65 L82 110 Q50 118 18 110 Z" fill="#c8a882" opacity="0.4"/></svg></div>
+          <div class="works-mini-overlay"><div class="works-mini-title">大人ショートボブ</div></div>
+        </div>
+        <div class="works-mini-card grad-5">
+          <div class="hair-icon" style="opacity:0.15;"><svg viewBox="0 0 100 120" fill="none"><ellipse cx="50" cy="27" rx="20" ry="21" fill="#c8a882" opacity="0.55"/><path d="M16 62 Q18 42 50 40 Q82 42 84 62 L85 115 Q50 122 15 115 Z" fill="#c8a882" opacity="0.38"/></svg></div>
+          <div class="works-mini-overlay"><div class="works-mini-title">グレージュカラー</div></div>
+        </div>
+        <div class="works-mini-card grad-3">
+          <div class="hair-icon" style="opacity:0.15;"><svg viewBox="0 0 100 120" fill="none"><ellipse cx="50" cy="27" rx="20" ry="21" fill="#c8a882" opacity="0.55"/><path d="M15 60 Q17 40 50 38 Q83 40 85 60 L88 115 Q50 124 12 115 Z" fill="#c8a882" opacity="0.35"/></svg></div>
+          <div class="works-mini-overlay"><div class="works-mini-title">ナチュラルウェーブ</div></div>
+        </div>
       </div>
     </div>
 
@@ -1157,8 +1226,16 @@ html, body {
         <div class="confirm-val">2026年5月26日（月）<br>14:00〜16:00</div>
       </div>
       <div class="confirm-row">
-        <div class="confirm-key">料金</div>
-        <div class="confirm-val price">¥12,800</div>
+        <div class="confirm-key">メニュー料金</div>
+        <div class="confirm-val">¥12,800</div>
+      </div>
+      <div class="confirm-row">
+        <div class="confirm-key">指名料</div>
+        <div class="confirm-val">¥1,500</div>
+      </div>
+      <div class="confirm-row">
+        <div class="confirm-key">合計</div>
+        <div class="confirm-val price">¥14,300</div>
       </div>
     </div>
 
@@ -1470,6 +1547,38 @@ async function runAiSearch() {
 
   loading.style.display = 'none';
   btn.disabled = false;
+}
+
+// [STUDIO API] GET /api/studio/stylist/{STYLIST_ID}
+// res: { bio, genre_tags, nomination_fee, works: Array<{id,gradient,title,tags}> }
+function fetchStylistProfile(stylistId) {
+  return Promise.resolve({
+    id: stylistId || 'stylist_tanaka_ayaka',
+    bio: '骨格に合わせた似合わせカットが得意です。毎日のスタイリングが楽になるデザインを心がけています。',
+    genre_tags: ['似合わせカット', 'ショートボブ', 'グレージュカラー', 'ダメージレスカラー', 'トリートメント'],
+    nomination_fee: 1500,
+    works: [
+      { id:1, gradient:'grad-1', title:'大人ショートボブ', tags:['ショート','大人っぽい'] },
+      { id:2, gradient:'grad-5', title:'グレージュカラー', tags:['カラー','ナチュラル'] },
+      { id:3, gradient:'grad-3', title:'ナチュラルウェーブ', tags:['パーマ','ナチュラル'] }
+    ]
+  });
+}
+
+var stylistFollowed = false;
+
+function toggleFollow(e) {
+  if (e) e.stopPropagation();
+  stylistFollowed = !stylistFollowed;
+  var btn = document.getElementById('followBtn');
+  if (!btn) return;
+  if (stylistFollowed) {
+    btn.textContent = 'フォロー中';
+    btn.classList.add('followed');
+  } else {
+    btn.textContent = 'フォロー';
+    btn.classList.remove('followed');
+  }
 }
 
 function switchNav(tab) {
