@@ -649,6 +649,48 @@ html, body {
   font-family: 'Josefin Sans', sans-serif; font-weight: 100;
   font-size: 8px; letter-spacing: 0.1em; color: var(--hf); opacity: 0.8;
 }
+
+/* 作品詳細モーダル */
+.wm-backdrop {
+  position: fixed; inset: 0; z-index: 50;
+  background: rgba(0,0,0,0.62);
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.wm-backdrop.open { opacity: 1; pointer-events: all; }
+.wm-panel {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 51;
+  background: var(--bg2);
+  border-radius: 14px 14px 0 0;
+  border-top: 1px solid var(--border);
+  visibility: hidden; transform: translateY(100%);
+  transition: transform 0.45s cubic-bezier(0.22,1,0.36,1), visibility 0s linear 0.45s;
+  overflow: hidden;
+}
+.wm-panel.open {
+  visibility: visible; transform: translateY(0);
+  transition: transform 0.45s cubic-bezier(0.22,1,0.36,1), visibility 0s;
+}
+.wm-handle {
+  width: 36px; height: 4px; border-radius: 2px;
+  background: rgba(232,228,220,0.18); margin: 12px auto;
+}
+.wm-hero {
+  width: 100%; aspect-ratio: 1;
+  position: relative; overflow: hidden;
+}
+.wm-hero-overlay {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 52px 16px 16px;
+  background: linear-gradient(transparent, rgba(28,26,24,0.94));
+}
+.wm-title { font-size: 19px; font-weight: 400; color: var(--text); margin-bottom: 8px; }
+.wm-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.wm-tag {
+  font-size: 10px; padding: 3px 10px; border-radius: 20px;
+  border: 1px solid rgba(232,228,220,0.2); color: rgba(232,228,220,0.65);
+}
+.wm-body { padding: 14px 20px calc(20px + env(safe-area-inset-bottom)); }
 </style>
 </head>
 <body>
@@ -1055,42 +1097,42 @@ html, body {
       <div class="detail-label">スタイリストの作品</div>
       <!-- [STUDIO API] GET /api/studio/works?stylist_id={id}&published=true -->
       <div class="works-scroll-row">
-        <div class="works-scroll-card grad-1">
+        <div class="works-scroll-card grad-1" onclick="openWorkModal(0)">
           <div class="hair-icon" style="opacity:0.14;"><svg viewBox="0 0 100 120" fill="none"><ellipse cx="50" cy="28" rx="20" ry="22" fill="#c8a882" opacity="0.6"/><path d="M20 65 Q22 45 50 42 Q78 45 80 65 L82 110 Q50 118 18 110 Z" fill="#c8a882" opacity="0.4"/></svg></div>
           <div class="works-scroll-overlay">
             <div class="works-scroll-title">大人ショートボブ</div>
             <div class="works-scroll-tag">ショート · 大人っぽい</div>
           </div>
         </div>
-        <div class="works-scroll-card grad-5">
+        <div class="works-scroll-card grad-5" onclick="openWorkModal(1)">
           <div class="hair-icon" style="opacity:0.14;"><svg viewBox="0 0 100 120" fill="none"><ellipse cx="50" cy="27" rx="20" ry="21" fill="#c8a882" opacity="0.55"/><path d="M16 62 Q18 42 50 40 Q82 42 84 62 L85 115 Q50 122 15 115 Z" fill="#c8a882" opacity="0.38"/><path d="M30 50 Q28 72 26 95 Q25 108 28 115" stroke="#c8a882" stroke-width="1" fill="none" opacity="0.25"/></svg></div>
           <div class="works-scroll-overlay">
             <div class="works-scroll-title">グレージュカラー</div>
             <div class="works-scroll-tag">カラー · ナチュラル</div>
           </div>
         </div>
-        <div class="works-scroll-card grad-3">
+        <div class="works-scroll-card grad-3" onclick="openWorkModal(2)">
           <div class="hair-icon" style="opacity:0.14;"><svg viewBox="0 0 100 120" fill="none"><ellipse cx="50" cy="27" rx="20" ry="21" fill="#c8a882" opacity="0.55"/><path d="M15 60 Q17 40 50 38 Q83 40 85 60 L88 115 Q50 124 12 115 Z" fill="#c8a882" opacity="0.35"/><path d="M20 55 Q22 68 18 85 Q16 98 20 110" stroke="#c8a882" stroke-width="1.2" fill="none" opacity="0.3"/><path d="M80 55 Q78 68 82 85 Q84 98 80 110" stroke="#c8a882" stroke-width="1.2" fill="none" opacity="0.3"/></svg></div>
           <div class="works-scroll-overlay">
             <div class="works-scroll-title">ナチュラルウェーブ</div>
             <div class="works-scroll-tag">パーマ · ナチュラル</div>
           </div>
         </div>
-        <div class="works-scroll-card grad-2">
+        <div class="works-scroll-card grad-2" onclick="openWorkModal(3)">
           <div class="hair-icon" style="opacity:0.14;"><svg viewBox="0 0 100 120" fill="none"><ellipse cx="50" cy="26" rx="19" ry="20" fill="#d4b8b0" opacity="0.6"/><path d="M18 62 Q20 42 50 40 Q80 42 82 62 L84 115 Q50 122 16 115 Z" fill="#d4b8b0" opacity="0.4"/><path d="M30 45 Q35 80 38 115" stroke="#d4b8b0" stroke-width="0.6" fill="none" opacity="0.2"/><path d="M70 45 Q65 80 62 115" stroke="#d4b8b0" stroke-width="0.6" fill="none" opacity="0.2"/></svg></div>
           <div class="works-scroll-overlay">
             <div class="works-scroll-title">透け感ロングカラー</div>
             <div class="works-scroll-tag">カラー · ロング</div>
           </div>
         </div>
-        <div class="works-scroll-card grad-4">
+        <div class="works-scroll-card grad-4" onclick="openWorkModal(4)">
           <div class="hair-icon" style="opacity:0.14;"><svg viewBox="0 0 100 120" fill="none"><ellipse cx="50" cy="26" rx="18" ry="19" fill="#d4b8b0" opacity="0.6"/><path d="M22 60 Q24 42 50 40 Q76 42 78 60 L76 85 Q50 88 24 85 Z" fill="#d4b8b0" opacity="0.45"/><line x1="22" y1="84" x2="18" y2="115" stroke="#d4b8b0" stroke-width="1" opacity="0.3"/><line x1="76" y1="84" x2="80" y2="115" stroke="#d4b8b0" stroke-width="1" opacity="0.3"/></svg></div>
           <div class="works-scroll-overlay">
             <div class="works-scroll-title">ミニマルショート</div>
             <div class="works-scroll-tag">ショート · クール</div>
           </div>
         </div>
-        <div class="works-scroll-card grad-6">
+        <div class="works-scroll-card grad-6" onclick="openWorkModal(5)">
           <div class="hair-icon" style="opacity:0.14;"><svg viewBox="0 0 100 120" fill="none"><ellipse cx="50" cy="26" rx="19" ry="20" fill="#d4b8b0" opacity="0.58"/><path d="M20 62 Q22 42 50 40 Q78 42 80 62 L79 88 Q50 92 21 88 Z" fill="#d4b8b0" opacity="0.42"/><line x1="21" y1="87" x2="19" y2="115" stroke="#d4b8b0" stroke-width="1.5" opacity="0.3"/><line x1="79" y1="87" x2="81" y2="115" stroke="#d4b8b0" stroke-width="1.5" opacity="0.3"/></svg></div>
           <div class="works-scroll-overlay">
             <div class="works-scroll-title">クールボブ</div>
@@ -1493,6 +1535,35 @@ html, body {
 
 </div>
 
+<!-- 作品詳細モーダル -->
+<div class="wm-backdrop" id="wmBackdrop" onclick="closeWorkModal()"></div>
+<div class="wm-panel" id="wmPanel">
+  <div class="wm-handle"></div>
+  <div class="wm-hero grad-1" id="wmHero">
+    <div class="hair-icon" style="opacity:0.15;">
+      <svg id="wmSvg" viewBox="0 0 100 120" fill="none">
+        <ellipse cx="50" cy="28" rx="20" ry="22" fill="#c8a882" opacity="0.6"/>
+        <path d="M20 65 Q22 45 50 42 Q78 45 80 65 L82 110 Q50 118 18 110 Z" fill="#c8a882" opacity="0.4"/>
+      </svg>
+    </div>
+    <div class="wm-hero-overlay">
+      <div class="wm-title" id="wmTitle"></div>
+      <div class="wm-tags" id="wmTags"></div>
+    </div>
+  </div>
+  <div class="wm-body">
+    <div class="stylist-row" style="margin:0 0 14px;cursor:default;">
+      <div class="stylist-av">田</div>
+      <div class="stylist-info">
+        <div class="stylist-name">田中 彩花</div>
+        <div class="stylist-meta">Hair Studio LUNA 渋谷店</div>
+        <div class="nomination-chip">指名料 ¥1,500</div>
+      </div>
+    </div>
+    <button class="reserve-btn" onclick="bookFromWork()">この作品で予約する</button>
+  </div>
+</div>
+
 <script>
 var current = 's-login';
 
@@ -1589,6 +1660,44 @@ async function runAiSearch() {
 
   loading.style.display = 'none';
   btn.disabled = false;
+}
+
+var reserveWorks = [
+  { gradient: 'grad-1', title: '大人ショートボブ', tags: ['ショート', '大人っぽい'],
+    svg: '<ellipse cx="50" cy="28" rx="20" ry="22" fill="#c8a882" opacity="0.6"/><path d="M20 65 Q22 45 50 42 Q78 45 80 65 L82 110 Q50 118 18 110 Z" fill="#c8a882" opacity="0.4"/>' },
+  { gradient: 'grad-5', title: 'グレージュカラー', tags: ['カラー', 'ナチュラル'],
+    svg: '<ellipse cx="50" cy="27" rx="20" ry="21" fill="#c8a882" opacity="0.55"/><path d="M16 62 Q18 42 50 40 Q82 42 84 62 L85 115 Q50 122 15 115 Z" fill="#c8a882" opacity="0.38"/><path d="M30 50 Q28 72 26 95 Q25 108 28 115" stroke="#c8a882" stroke-width="1" fill="none" opacity="0.25"/>' },
+  { gradient: 'grad-3', title: 'ナチュラルウェーブ', tags: ['パーマ', 'ナチュラル'],
+    svg: '<ellipse cx="50" cy="27" rx="20" ry="21" fill="#c8a882" opacity="0.55"/><path d="M15 60 Q17 40 50 38 Q83 40 85 60 L88 115 Q50 124 12 115 Z" fill="#c8a882" opacity="0.35"/><path d="M20 55 Q22 68 18 85 Q16 98 20 110" stroke="#c8a882" stroke-width="1.2" fill="none" opacity="0.3"/>' },
+  { gradient: 'grad-2', title: '透け感ロングカラー', tags: ['カラー', 'ロング'],
+    svg: '<ellipse cx="50" cy="26" rx="19" ry="20" fill="#d4b8b0" opacity="0.6"/><path d="M18 62 Q20 42 50 40 Q80 42 82 62 L84 115 Q50 122 16 115 Z" fill="#d4b8b0" opacity="0.4"/><path d="M30 45 Q35 80 38 115" stroke="#d4b8b0" stroke-width="0.6" fill="none" opacity="0.2"/>' },
+  { gradient: 'grad-4', title: 'ミニマルショート', tags: ['ショート', 'クール'],
+    svg: '<ellipse cx="50" cy="26" rx="18" ry="19" fill="#d4b8b0" opacity="0.6"/><path d="M22 60 Q24 42 50 40 Q76 42 78 60 L76 85 Q50 88 24 85 Z" fill="#d4b8b0" opacity="0.45"/><line x1="22" y1="84" x2="18" y2="115" stroke="#d4b8b0" stroke-width="1" opacity="0.3"/>' },
+  { gradient: 'grad-6', title: 'クールボブ', tags: ['ボブ', 'クール'],
+    svg: '<ellipse cx="50" cy="26" rx="19" ry="20" fill="#d4b8b0" opacity="0.58"/><path d="M20 62 Q22 42 50 40 Q78 42 80 62 L79 88 Q50 92 21 88 Z" fill="#d4b8b0" opacity="0.42"/><line x1="21" y1="87" x2="19" y2="115" stroke="#d4b8b0" stroke-width="1.5" opacity="0.3"/>' }
+];
+
+function openWorkModal(index) {
+  var work = reserveWorks[index];
+  var hero = document.getElementById('wmHero');
+  hero.className = 'wm-hero ' + work.gradient;
+  document.getElementById('wmSvg').innerHTML = work.svg;
+  document.getElementById('wmTitle').textContent = work.title;
+  document.getElementById('wmTags').innerHTML = work.tags.map(function(t){
+    return '<div class="wm-tag">' + t + '</div>';
+  }).join('');
+  document.getElementById('wmBackdrop').classList.add('open');
+  document.getElementById('wmPanel').classList.add('open');
+}
+
+function closeWorkModal() {
+  document.getElementById('wmBackdrop').classList.remove('open');
+  document.getElementById('wmPanel').classList.remove('open');
+}
+
+function bookFromWork() {
+  closeWorkModal();
+  setTimeout(function(){ goTo('s4'); }, 200);
 }
 
 // [STUDIO API] GET /api/studio/stylist/{STYLIST_ID}
