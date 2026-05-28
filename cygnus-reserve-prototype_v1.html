@@ -691,6 +691,21 @@ html, body {
   border: 1px solid rgba(232,228,220,0.2); color: rgba(232,228,220,0.65);
 }
 .wm-body { padding: 14px 20px calc(20px + env(safe-area-inset-bottom)); }
+.wm-menu-row {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 0; margin-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.wm-menu-label {
+  font-family: 'Josefin Sans', sans-serif; font-weight: 100;
+  font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--muted); flex-shrink: 0;
+}
+.wm-menu-val { flex: 1; font-size: 13px; font-weight: 400; color: var(--text); }
+.wm-menu-price {
+  font-family: 'Josefin Sans', sans-serif; font-weight: 100;
+  font-size: 16px; color: var(--hf);
+}
 </style>
 </head>
 <body>
@@ -1303,7 +1318,7 @@ html, body {
       </div>
       <div class="confirm-row">
         <div class="confirm-key">メニュー</div>
-        <div class="confirm-val">カット + カラー</div>
+        <div class="confirm-val" id="s5MenuName">カット + カラー</div>
       </div>
       <div class="confirm-row">
         <div class="confirm-key">日時</div>
@@ -1311,7 +1326,7 @@ html, body {
       </div>
       <div class="confirm-row">
         <div class="confirm-key">メニュー料金</div>
-        <div class="confirm-val">¥12,800</div>
+        <div class="confirm-val" id="s5MenuPrice">¥12,800</div>
       </div>
       <div class="confirm-row">
         <div class="confirm-key">指名料</div>
@@ -1319,7 +1334,7 @@ html, body {
       </div>
       <div class="confirm-row">
         <div class="confirm-key">合計</div>
-        <div class="confirm-val price">¥14,300</div>
+        <div class="confirm-val price" id="s5Total">¥14,300</div>
       </div>
     </div>
 
@@ -1552,6 +1567,11 @@ html, body {
     </div>
   </div>
   <div class="wm-body">
+    <div class="wm-menu-row">
+      <div class="wm-menu-label">Menu</div>
+      <div class="wm-menu-val" id="wmMenuName"></div>
+      <div class="wm-menu-price" id="wmMenuPrice"></div>
+    </div>
     <div class="stylist-row" style="margin:0 0 14px;cursor:default;">
       <div class="stylist-av">田</div>
       <div class="stylist-info">
@@ -1662,22 +1682,34 @@ async function runAiSearch() {
   btn.disabled = false;
 }
 
+// [STUDIO API] GET /api/studio/works?stylist_id={id}&published=true
+// 各作品はmenuId(LOOP/STUDIOで定義したメニューID)を持つ
 var reserveWorks = [
   { gradient: 'grad-1', title: '大人ショートボブ', tags: ['ショート', '大人っぽい'],
+    menu: { id: 'cut', name: 'カット', price: 7700 },
     svg: '<ellipse cx="50" cy="28" rx="20" ry="22" fill="#c8a882" opacity="0.6"/><path d="M20 65 Q22 45 50 42 Q78 45 80 65 L82 110 Q50 118 18 110 Z" fill="#c8a882" opacity="0.4"/>' },
   { gradient: 'grad-5', title: 'グレージュカラー', tags: ['カラー', 'ナチュラル'],
+    menu: { id: 'cut_color', name: 'カット + カラー', price: 12800 },
     svg: '<ellipse cx="50" cy="27" rx="20" ry="21" fill="#c8a882" opacity="0.55"/><path d="M16 62 Q18 42 50 40 Q82 42 84 62 L85 115 Q50 122 15 115 Z" fill="#c8a882" opacity="0.38"/><path d="M30 50 Q28 72 26 95 Q25 108 28 115" stroke="#c8a882" stroke-width="1" fill="none" opacity="0.25"/>' },
   { gradient: 'grad-3', title: 'ナチュラルウェーブ', tags: ['パーマ', 'ナチュラル'],
+    menu: { id: 'cut_perm', name: 'カット + パーマ', price: 14500 },
     svg: '<ellipse cx="50" cy="27" rx="20" ry="21" fill="#c8a882" opacity="0.55"/><path d="M15 60 Q17 40 50 38 Q83 40 85 60 L88 115 Q50 124 12 115 Z" fill="#c8a882" opacity="0.35"/><path d="M20 55 Q22 68 18 85 Q16 98 20 110" stroke="#c8a882" stroke-width="1.2" fill="none" opacity="0.3"/>' },
   { gradient: 'grad-2', title: '透け感ロングカラー', tags: ['カラー', 'ロング'],
+    menu: { id: 'cut_color', name: 'カット + カラー', price: 12800 },
     svg: '<ellipse cx="50" cy="26" rx="19" ry="20" fill="#d4b8b0" opacity="0.6"/><path d="M18 62 Q20 42 50 40 Q80 42 82 62 L84 115 Q50 122 16 115 Z" fill="#d4b8b0" opacity="0.4"/><path d="M30 45 Q35 80 38 115" stroke="#d4b8b0" stroke-width="0.6" fill="none" opacity="0.2"/>' },
   { gradient: 'grad-4', title: 'ミニマルショート', tags: ['ショート', 'クール'],
+    menu: { id: 'cut', name: 'カット', price: 7700 },
     svg: '<ellipse cx="50" cy="26" rx="18" ry="19" fill="#d4b8b0" opacity="0.6"/><path d="M22 60 Q24 42 50 40 Q76 42 78 60 L76 85 Q50 88 24 85 Z" fill="#d4b8b0" opacity="0.45"/><line x1="22" y1="84" x2="18" y2="115" stroke="#d4b8b0" stroke-width="1" opacity="0.3"/>' },
   { gradient: 'grad-6', title: 'クールボブ', tags: ['ボブ', 'クール'],
+    menu: { id: 'cut', name: 'カット', price: 7700 },
     svg: '<ellipse cx="50" cy="26" rx="19" ry="20" fill="#d4b8b0" opacity="0.58"/><path d="M20 62 Q22 42 50 40 Q78 42 80 62 L79 88 Q50 92 21 88 Z" fill="#d4b8b0" opacity="0.42"/><line x1="21" y1="87" x2="19" y2="115" stroke="#d4b8b0" stroke-width="1.5" opacity="0.3"/>' }
 ];
 
+var currentWorkIndex = 0;
+var NOMINATION_FEE = 1500;
+
 function openWorkModal(index) {
+  currentWorkIndex = index;
   var work = reserveWorks[index];
   var hero = document.getElementById('wmHero');
   hero.className = 'wm-hero ' + work.gradient;
@@ -1686,6 +1718,10 @@ function openWorkModal(index) {
   document.getElementById('wmTags').innerHTML = work.tags.map(function(t){
     return '<div class="wm-tag">' + t + '</div>';
   }).join('');
+  if (work.menu) {
+    document.getElementById('wmMenuName').textContent = work.menu.name;
+    document.getElementById('wmMenuPrice').textContent = '¥' + work.menu.price.toLocaleString();
+  }
   document.getElementById('wmBackdrop').classList.add('open');
   document.getElementById('wmPanel').classList.add('open');
 }
@@ -1696,6 +1732,12 @@ function closeWorkModal() {
 }
 
 function bookFromWork() {
+  var work = reserveWorks[currentWorkIndex];
+  if (work && work.menu) {
+    document.getElementById('s5MenuName').textContent = work.menu.name;
+    document.getElementById('s5MenuPrice').textContent = '¥' + work.menu.price.toLocaleString();
+    document.getElementById('s5Total').textContent = '¥' + (work.menu.price + NOMINATION_FEE).toLocaleString();
+  }
   closeWorkModal();
   setTimeout(function(){ goTo('s4'); }, 200);
 }
