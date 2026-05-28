@@ -621,22 +621,33 @@ html, body {
   color: rgba(232,228,220,0.4);
 }
 
-/* s3 公開作品グリッド */
-.works-mini-grid {
-  display: grid; grid-template-columns: 1fr 1fr 1fr;
-  gap: 2px;
+/* s3 公開作品スライド */
+.works-scroll-row {
+  display: flex; gap: 3px;
+  overflow-x: auto; scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  margin: 0 -20px; padding: 0 20px;
+  scrollbar-width: none;
 }
-.works-mini-card {
-  aspect-ratio: 3/4; position: relative;
-  overflow: hidden; cursor: pointer; border-radius: 2px;
+.works-scroll-row::-webkit-scrollbar { display: none; }
+.works-scroll-card {
+  flex: 0 0 42vw; aspect-ratio: 3/4;
+  position: relative; overflow: hidden;
+  border-radius: 2px; cursor: pointer;
+  scroll-snap-align: start;
+  -webkit-tap-highlight-color: transparent;
 }
-.works-mini-overlay {
+.works-scroll-overlay {
   position: absolute; bottom: 0; left: 0; right: 0;
-  padding: 18px 8px 8px;
-  background: linear-gradient(transparent, rgba(28,26,24,0.9));
+  padding: 20px 8px 8px;
+  background: linear-gradient(transparent, rgba(28,26,24,0.92));
 }
-.works-mini-title {
-  font-size: 10px; font-weight: 400; color: var(--text);
+.works-scroll-title {
+  font-size: 10px; font-weight: 400; color: var(--text); margin-bottom: 2px;
+}
+.works-scroll-tag {
+  font-family: 'Josefin Sans', sans-serif; font-weight: 100;
+  font-size: 8px; letter-spacing: 0.1em; color: var(--hf); opacity: 0.8;
 }
 </style>
 </head>
@@ -1042,18 +1053,49 @@ html, body {
     <div class="detail-section" style="padding-bottom:8px;">
       <!-- [STUDIO API] GET /api/studio/works?stylist_id={id}&published=true&limit=6 -->
       <div class="detail-label">スタイリストの作品</div>
-      <div class="works-mini-grid">
-        <div class="works-mini-card grad-1">
-          <div class="hair-icon" style="opacity:0.15;"><svg viewBox="0 0 100 120" fill="none"><ellipse cx="50" cy="28" rx="20" ry="22" fill="#c8a882" opacity="0.6"/><path d="M20 65 Q22 45 50 42 Q78 45 80 65 L82 110 Q50 118 18 110 Z" fill="#c8a882" opacity="0.4"/></svg></div>
-          <div class="works-mini-overlay"><div class="works-mini-title">大人ショートボブ</div></div>
+      <!-- [STUDIO API] GET /api/studio/works?stylist_id={id}&published=true -->
+      <div class="works-scroll-row">
+        <div class="works-scroll-card grad-1">
+          <div class="hair-icon" style="opacity:0.14;"><svg viewBox="0 0 100 120" fill="none"><ellipse cx="50" cy="28" rx="20" ry="22" fill="#c8a882" opacity="0.6"/><path d="M20 65 Q22 45 50 42 Q78 45 80 65 L82 110 Q50 118 18 110 Z" fill="#c8a882" opacity="0.4"/></svg></div>
+          <div class="works-scroll-overlay">
+            <div class="works-scroll-title">大人ショートボブ</div>
+            <div class="works-scroll-tag">ショート · 大人っぽい</div>
+          </div>
         </div>
-        <div class="works-mini-card grad-5">
-          <div class="hair-icon" style="opacity:0.15;"><svg viewBox="0 0 100 120" fill="none"><ellipse cx="50" cy="27" rx="20" ry="21" fill="#c8a882" opacity="0.55"/><path d="M16 62 Q18 42 50 40 Q82 42 84 62 L85 115 Q50 122 15 115 Z" fill="#c8a882" opacity="0.38"/></svg></div>
-          <div class="works-mini-overlay"><div class="works-mini-title">グレージュカラー</div></div>
+        <div class="works-scroll-card grad-5">
+          <div class="hair-icon" style="opacity:0.14;"><svg viewBox="0 0 100 120" fill="none"><ellipse cx="50" cy="27" rx="20" ry="21" fill="#c8a882" opacity="0.55"/><path d="M16 62 Q18 42 50 40 Q82 42 84 62 L85 115 Q50 122 15 115 Z" fill="#c8a882" opacity="0.38"/><path d="M30 50 Q28 72 26 95 Q25 108 28 115" stroke="#c8a882" stroke-width="1" fill="none" opacity="0.25"/></svg></div>
+          <div class="works-scroll-overlay">
+            <div class="works-scroll-title">グレージュカラー</div>
+            <div class="works-scroll-tag">カラー · ナチュラル</div>
+          </div>
         </div>
-        <div class="works-mini-card grad-3">
-          <div class="hair-icon" style="opacity:0.15;"><svg viewBox="0 0 100 120" fill="none"><ellipse cx="50" cy="27" rx="20" ry="21" fill="#c8a882" opacity="0.55"/><path d="M15 60 Q17 40 50 38 Q83 40 85 60 L88 115 Q50 124 12 115 Z" fill="#c8a882" opacity="0.35"/></svg></div>
-          <div class="works-mini-overlay"><div class="works-mini-title">ナチュラルウェーブ</div></div>
+        <div class="works-scroll-card grad-3">
+          <div class="hair-icon" style="opacity:0.14;"><svg viewBox="0 0 100 120" fill="none"><ellipse cx="50" cy="27" rx="20" ry="21" fill="#c8a882" opacity="0.55"/><path d="M15 60 Q17 40 50 38 Q83 40 85 60 L88 115 Q50 124 12 115 Z" fill="#c8a882" opacity="0.35"/><path d="M20 55 Q22 68 18 85 Q16 98 20 110" stroke="#c8a882" stroke-width="1.2" fill="none" opacity="0.3"/><path d="M80 55 Q78 68 82 85 Q84 98 80 110" stroke="#c8a882" stroke-width="1.2" fill="none" opacity="0.3"/></svg></div>
+          <div class="works-scroll-overlay">
+            <div class="works-scroll-title">ナチュラルウェーブ</div>
+            <div class="works-scroll-tag">パーマ · ナチュラル</div>
+          </div>
+        </div>
+        <div class="works-scroll-card grad-2">
+          <div class="hair-icon" style="opacity:0.14;"><svg viewBox="0 0 100 120" fill="none"><ellipse cx="50" cy="26" rx="19" ry="20" fill="#d4b8b0" opacity="0.6"/><path d="M18 62 Q20 42 50 40 Q80 42 82 62 L84 115 Q50 122 16 115 Z" fill="#d4b8b0" opacity="0.4"/><path d="M30 45 Q35 80 38 115" stroke="#d4b8b0" stroke-width="0.6" fill="none" opacity="0.2"/><path d="M70 45 Q65 80 62 115" stroke="#d4b8b0" stroke-width="0.6" fill="none" opacity="0.2"/></svg></div>
+          <div class="works-scroll-overlay">
+            <div class="works-scroll-title">透け感ロングカラー</div>
+            <div class="works-scroll-tag">カラー · ロング</div>
+          </div>
+        </div>
+        <div class="works-scroll-card grad-4">
+          <div class="hair-icon" style="opacity:0.14;"><svg viewBox="0 0 100 120" fill="none"><ellipse cx="50" cy="26" rx="18" ry="19" fill="#d4b8b0" opacity="0.6"/><path d="M22 60 Q24 42 50 40 Q76 42 78 60 L76 85 Q50 88 24 85 Z" fill="#d4b8b0" opacity="0.45"/><line x1="22" y1="84" x2="18" y2="115" stroke="#d4b8b0" stroke-width="1" opacity="0.3"/><line x1="76" y1="84" x2="80" y2="115" stroke="#d4b8b0" stroke-width="1" opacity="0.3"/></svg></div>
+          <div class="works-scroll-overlay">
+            <div class="works-scroll-title">ミニマルショート</div>
+            <div class="works-scroll-tag">ショート · クール</div>
+          </div>
+        </div>
+        <div class="works-scroll-card grad-6">
+          <div class="hair-icon" style="opacity:0.14;"><svg viewBox="0 0 100 120" fill="none"><ellipse cx="50" cy="26" rx="19" ry="20" fill="#d4b8b0" opacity="0.58"/><path d="M20 62 Q22 42 50 40 Q78 42 80 62 L79 88 Q50 92 21 88 Z" fill="#d4b8b0" opacity="0.42"/><line x1="21" y1="87" x2="19" y2="115" stroke="#d4b8b0" stroke-width="1.5" opacity="0.3"/><line x1="79" y1="87" x2="81" y2="115" stroke="#d4b8b0" stroke-width="1.5" opacity="0.3"/></svg></div>
+          <div class="works-scroll-overlay">
+            <div class="works-scroll-title">クールボブ</div>
+            <div class="works-scroll-tag">ボブ · クール</div>
+          </div>
         </div>
       </div>
     </div>
