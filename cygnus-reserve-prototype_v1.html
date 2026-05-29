@@ -1489,7 +1489,7 @@ html, body {
       <div class="logo-wordmark"><span class="logo-c">CYGNUS</span><span class="logo-r">RESERVE</span></div>
     </div>
   </div>
-  <div class="scroll" style="padding:20px;">
+  <div class="scroll" style="padding:20px 20px 88px;">
     <div class="screen-eyebrow">// Favorites</div>
     <div class="screen-title-serif">お気に入り</div>
     <div class="fav-tabs">
@@ -1526,7 +1526,7 @@ html, body {
       <div class="logo-wordmark"><span class="logo-c">CYGNUS</span><span class="logo-r">RESERVE</span></div>
     </div>
   </div>
-  <div class="scroll" style="padding:20px;">
+  <div class="scroll" style="padding:20px 20px 88px;">
     <div class="screen-eyebrow">// Bookings</div>
     <div class="screen-title-serif">予約管理</div>
 
@@ -1623,7 +1623,7 @@ html, body {
       <div class="logo-wordmark"><span class="logo-c">CYGNUS</span><span class="logo-r">RESERVE</span></div>
     </div>
   </div>
-  <div class="scroll" style="padding:20px;">
+  <div class="scroll" style="padding:20px 20px 88px;">
     <div class="mp-profile">
       <div class="mp-avatar">山</div>
       <div class="mp-name">山田 麻衣</div>
@@ -1668,12 +1668,9 @@ html, body {
         <div class="mp-row-label">プロフィール編集</div>
         <svg class="mp-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><polyline points="6,4 10,8 6,12" stroke="#e8e4dc" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
-      <div class="mp-row" style="opacity:0.38;cursor:default;">
-        <div>
-          <div class="mp-row-label">Cygnus ID</div>
-          <div class="mp-row-sub">複数サービスで使える共通ID（Coming soon）</div>
-        </div>
-        <div style="font-family:'Josefin Sans',sans-serif;font-weight:100;font-size:8px;letter-spacing:0.12em;padding:3px 7px;border:1px solid var(--border);border-radius:2px;color:var(--muted);">SOON</div>
+      <div class="mp-row">
+        <div class="mp-row-label">LINE 連携設定</div>
+        <svg class="mp-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><polyline points="6,4 10,8 6,12" stroke="#e8e4dc" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
     </div>
 
@@ -2024,15 +2021,33 @@ function updateMpFollowCount() {
   if (el) el.textContent = followedStylists.length;
 }
 
+// [RESERVE API] GET /api/reserve/me
+// cygnus_customer_id はシステム内部のみで使用。UI には表示しない。
+function fetchCurrentCustomer() {
+  return Promise.resolve({
+    cygnus_customer_id: 'CCU-08831',
+    display_name: '山田 麻衣',
+    line_linked: true,
+    follow_count: 2,
+    visit_count: 4
+  });
+}
+
 // Init
 renderFavStylists();
 updateMpFollowCount();
 
-// [STUDIO API] GET /api/studio/stylist/{STYLIST_ID}
-// res: { bio, genre_tags, nomination_fee, works: Array<{id,gradient,title,tags}> }
+// ── ID 設計メモ ──
+// Cygnus ID       … スタイリスト専用。店舗を跨いで技術・履歴・信頼を積み上げる基盤ID。
+// cygnus_customer_id … お客さん専用。フォロー先・来店履歴・傾向などを蓄積する内部ID。
+//                     どちらもユーザーが意識する必要はない（システム内部のみで使用）。
+
+// [STUDIO API] GET /api/studio/stylist/{cygnus_id}
+// res: { cygnus_id, bio, genre_tags, nomination_fee, works: Array<{id,gradient,title,tags}> }
 function fetchStylistProfile(stylistId) {
   return Promise.resolve({
     id: stylistId || 'stylist_tanaka_ayaka',
+    cygnus_id: 'CYG-00142',
     bio: '骨格に合わせた似合わせカットが得意です。毎日のスタイリングが楽になるデザインを心がけています。',
     genre_tags: ['似合わせカット', 'ショートボブ', 'グレージュカラー', 'ダメージレスカラー', 'トリートメント'],
     nomination_fee: 1500,
