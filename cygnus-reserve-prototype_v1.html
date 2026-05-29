@@ -706,6 +706,88 @@ html, body {
   font-family: 'Josefin Sans', sans-serif; font-weight: 100;
   font-size: 16px; color: var(--hf);
 }
+.wm-save-btn { position:absolute; top:12px; right:12px; width:32px; height:32px; background:rgba(28,26,24,0.6); border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:2; -webkit-tap-highlight-color:transparent; transition:background 0.2s ease; }
+.wm-save-btn.saved { background:rgba(200,168,130,0.25); }
+.wm-save-btn.saved svg path { fill:var(--hf); stroke:var(--hf); }
+
+/* ── BOOKING SCREEN ── */
+.bk-card { background:var(--bg2); border:1px solid var(--hf-border); border-radius:2px; padding:16px; margin-bottom:16px; position:relative; overflow:hidden; }
+.bk-topline { position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--hf),transparent); }
+.bk-status-badge { font-family:'Josefin Sans',sans-serif; font-weight:100; font-size:9px; letter-spacing:0.18em; text-transform:uppercase; color:var(--hf); margin-bottom:10px; }
+.bk-stylist-row { display:flex; align-items:center; gap:10px; margin-bottom:14px; }
+.bk-av { width:36px; height:36px; border-radius:50%; background:var(--hf-dim); border:1px solid var(--hf-border); display:flex; align-items:center; justify-content:center; font-family:'Josefin Sans',sans-serif; font-weight:100; font-size:12px; color:var(--hf); flex-shrink:0; }
+.bk-av.sm { width:30px; height:30px; font-size:10px; }
+.bk-stylist-name { font-size:15px; font-weight:400; color:var(--text); }
+.bk-stylist-salon { font-size:11px; color:var(--muted); margin-top:1px; }
+.bk-detail-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px 16px; padding:12px 0; border-top:1px solid var(--border); margin-bottom:12px; }
+.bk-detail-key { font-size:10px; color:var(--muted); margin-bottom:2px; }
+.bk-detail-val { font-size:13px; color:var(--text); }
+.bk-detail-val.total { font-family:'Josefin Sans',sans-serif; font-weight:100; font-size:16px; color:var(--hf); }
+.bk-cancel-btn { width:100%; padding:10px; background:transparent; border:1px solid rgba(232,228,220,0.12); border-radius:2px; font-family:'Josefin Sans',sans-serif; font-weight:100; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(232,228,220,0.35); cursor:pointer; -webkit-tap-highlight-color:transparent; }
+.bk-history-list { display:flex; flex-direction:column; gap:2px; }
+.bk-history-row { display:flex; align-items:center; gap:10px; background:var(--bg2); border:1px solid var(--border); border-radius:2px; padding:12px 14px; }
+.bk-history-info { flex:1; min-width:0; }
+.bk-history-name { font-size:13px; font-weight:400; color:var(--text); margin-bottom:2px; }
+.bk-history-meta { font-size:10px; color:var(--muted); }
+.bk-history-right { display:flex; flex-direction:column; align-items:flex-end; gap:4px; flex-shrink:0; }
+.bk-history-price { font-size:11px; color:var(--muted); }
+.bk-rebook-btn { font-family:'Josefin Sans',sans-serif; font-weight:100; font-size:9px; letter-spacing:0.12em; padding:4px 10px; border:1px solid var(--hf-border); border-radius:2px; color:var(--hf); background:transparent; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+.cancel-backdrop { position:fixed; inset:0; z-index:50; background:rgba(0,0,0,0.62); opacity:0; pointer-events:none; transition:opacity 0.3s ease; }
+.cancel-backdrop.open { opacity:1; pointer-events:all; }
+.cancel-panel { position:fixed; bottom:0; left:0; right:0; z-index:51; background:var(--bg2); border-radius:14px 14px 0 0; border-top:1px solid var(--border); visibility:hidden; transform:translateY(100%); transition:transform 0.45s cubic-bezier(0.22,1,0.36,1),visibility 0s linear 0.45s; }
+.cancel-panel.open { visibility:visible; transform:translateY(0); transition:transform 0.45s cubic-bezier(0.22,1,0.36,1),visibility 0s; }
+.cancel-body { padding:20px 20px calc(24px + env(safe-area-inset-bottom)); }
+.cancel-policy-row { display:flex; justify-content:space-between; padding:9px 0; border-bottom:1px solid var(--border); font-size:12px; }
+.cancel-policy-key { color:var(--muted); }
+.cancel-policy-val { color:var(--text); }
+.cancel-confirm-btn { width:100%; padding:14px; margin-top:16px; background:rgba(180,80,80,0.1); border:1px solid rgba(180,80,80,0.22); border-radius:2px; font-family:'Josefin Sans',sans-serif; font-weight:100; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:rgba(220,120,120,0.8); cursor:pointer; -webkit-tap-highlight-color:transparent; }
+.cancel-back-btn { width:100%; padding:12px; margin-top:8px; background:transparent; border:none; font-family:'Josefin Sans',sans-serif; font-weight:100; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:var(--muted); cursor:pointer; -webkit-tap-highlight-color:transparent; }
+
+/* ── FAVORITES SCREEN ── */
+.fav-tabs { display:flex; border-bottom:1px solid var(--border); margin-bottom:20px; }
+.fav-tab { flex:1; padding:12px; text-align:center; font-family:'Josefin Sans',sans-serif; font-weight:100; font-size:10px; letter-spacing:0.15em; text-transform:uppercase; color:var(--muted); cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-1px; -webkit-tap-highlight-color:transparent; transition:color 0.2s ease; }
+.fav-tab.active { color:var(--hf); border-bottom-color:var(--hf); }
+.fav-stylist-list { display:flex; flex-direction:column; gap:2px; }
+.fav-stylist-row { display:flex; align-items:center; gap:12px; padding:14px 16px; background:var(--bg2); border:1px solid var(--border); border-radius:2px; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+.fav-stylist-av { width:40px; height:40px; border-radius:50%; background:var(--hf-dim); border:1px solid var(--hf-border); display:flex; align-items:center; justify-content:center; font-family:'Josefin Sans',sans-serif; font-weight:100; font-size:13px; color:var(--hf); flex-shrink:0; }
+.fav-stylist-info { flex:1; }
+.fav-stylist-name { font-size:14px; font-weight:400; color:var(--text); margin-bottom:2px; }
+.fav-stylist-meta { font-size:11px; color:var(--muted); }
+.fav-following-badge { font-family:'Josefin Sans',sans-serif; font-weight:100; font-size:9px; letter-spacing:0.12em; padding:5px 10px; border:1px solid var(--hf-border); border-radius:2px; color:var(--hf); flex-shrink:0; }
+.fav-works-grid { display:grid; grid-template-columns:1fr 1fr; gap:2px; }
+.fav-work-card { aspect-ratio:3/4; position:relative; overflow:hidden; border-radius:2px; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+.fav-work-overlay { position:absolute; bottom:0; left:0; right:0; padding:20px 10px 10px; background:linear-gradient(transparent,rgba(28,26,24,0.85)); }
+.fav-work-stylist { font-size:10px; color:var(--hf); margin-bottom:2px; }
+.fav-work-title { font-size:11px; color:var(--text); }
+.fav-work-heart { position:absolute; top:8px; right:8px; width:26px; height:26px; display:flex; align-items:center; justify-content:center; background:rgba(28,26,24,0.5); border-radius:50%; }
+.fav-empty { text-align:center; padding:48px 20px; }
+.fav-empty-icon { opacity:0.2; margin-bottom:12px; }
+.fav-empty-text { font-size:12px; color:var(--muted); line-height:1.8; }
+
+/* ── MYPAGE SCREEN ── */
+.mp-profile { display:flex; flex-direction:column; align-items:center; padding:28px 0 24px; border-bottom:1px solid var(--border); margin-bottom:20px; }
+.mp-avatar { width:72px; height:72px; border-radius:50%; background:var(--hf-dim); border:2px solid var(--hf-border); display:flex; align-items:center; justify-content:center; font-family:'Josefin Sans',sans-serif; font-weight:100; font-size:26px; color:var(--hf); margin-bottom:12px; }
+.mp-name { font-size:17px; font-weight:400; color:var(--text); margin-bottom:6px; }
+.mp-line-badge { display:inline-flex; align-items:center; gap:4px; font-family:'Josefin Sans',sans-serif; font-weight:100; font-size:9px; letter-spacing:0.12em; padding:3px 8px; border-radius:20px; border:1px solid rgba(0,195,0,0.25); color:rgba(0,195,0,0.7); background:rgba(0,195,0,0.06); margin-bottom:16px; }
+.mp-stats-row { display:flex; align-items:center; gap:24px; }
+.mp-stat { text-align:center; }
+.mp-stat-num { font-family:'Josefin Sans',sans-serif; font-weight:100; font-size:22px; color:var(--hf); margin-bottom:2px; }
+.mp-stat-label { font-size:10px; color:var(--muted); }
+.mp-group { background:var(--bg2); border:1px solid var(--border); border-radius:2px; margin-bottom:10px; }
+.mp-row { display:flex; align-items:center; justify-content:space-between; padding:14px 16px; border-bottom:1px solid var(--border); cursor:pointer; -webkit-tap-highlight-color:transparent; }
+.mp-row:last-child { border-bottom:none; }
+.mp-row-label { font-size:13px; font-weight:400; color:var(--text); }
+.mp-row-sub { font-size:10px; color:var(--muted); margin-top:1px; }
+.mp-row-right { display:flex; align-items:center; gap:8px; }
+.mp-chevron { opacity:0.3; }
+.mp-toggle-track { width:38px; height:22px; border-radius:11px; background:rgba(212,184,176,0.1); border:1px solid var(--border); position:relative; cursor:pointer; transition:background 0.25s ease; flex-shrink:0; }
+.mp-toggle-track.on { background:rgba(212,184,176,0.28); border-color:var(--hf-border); }
+.mp-toggle-knob { position:absolute; top:2px; left:2px; width:16px; height:16px; border-radius:50%; background:rgba(232,228,220,0.22); transition:transform 0.25s cubic-bezier(0.22,1,0.36,1),background 0.25s ease; }
+.mp-toggle-track.on .mp-toggle-knob { transform:translateX(16px); background:var(--hf); }
+.mp-logout-btn { width:100%; padding:13px; background:transparent; border:1px solid rgba(232,228,220,0.1); border-radius:2px; font-family:'Josefin Sans',sans-serif; font-weight:100; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(232,228,220,0.25); cursor:pointer; -webkit-tap-highlight-color:transparent; margin-bottom:8px; }
+.screen-eyebrow { font-family:'Josefin Sans',sans-serif; font-weight:100; font-size:9px; letter-spacing:0.22em; text-transform:uppercase; color:var(--hf); margin-bottom:6px; }
+.screen-title-serif { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:20px; color:var(--text); margin-bottom:20px; }
+.sub-section-label { font-family:'Josefin Sans',sans-serif; font-weight:100; font-size:9px; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted); margin-bottom:10px; }
 </style>
 </head>
 <body>
@@ -1085,7 +1167,7 @@ html, body {
         <div style="font-size:11px;color:var(--muted);margin-top:2px;">フォロワー 1,240人</div>
         <div class="nomination-chip">指名料 ¥1,500</div>
       </div>
-      <div class="stylist-follow" id="followBtn" onclick="toggleFollow(event)">フォロー</div>
+      <div class="stylist-follow followed" id="followBtn" onclick="toggleFollow(event)">フォロー中</div>
     </div>
 
     <div class="detail-section">
@@ -1406,41 +1488,25 @@ html, body {
     </div>
   </div>
   <div class="scroll" style="padding:20px;">
-    <div style="font-family:'Josefin Sans',sans-serif;font-weight:100;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--hf);margin-bottom:6px;">// Favorites</div>
-    <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px;color:var(--text);margin-bottom:24px;">お気に入り</div>
-
-    <div style="font-family:'Josefin Sans',sans-serif;font-weight:100;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">フォロー中のスタイリスト</div>
-    <div style="display:flex;flex-direction:column;gap:2px;margin-bottom:24px;">
-      <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--border);border-radius:2px;">
-        <div style="width:40px;height:40px;border-radius:50%;background:var(--hf-dim);border:1px solid var(--hf-border);display:flex;align-items:center;justify-content:center;font-family:'Josefin Sans',sans-serif;font-weight:100;font-size:13px;color:var(--hf);">田</div>
-        <div style="flex:1;"><div style="font-size:14px;font-weight:400;color:var(--text);margin-bottom:2px;">田中 彩花</div><div style="font-size:11px;color:var(--muted);">Hair Studio LUNA 渋谷店</div></div>
-        <div style="font-family:'Josefin Sans',sans-serif;font-weight:100;font-size:9px;letter-spacing:0.12em;padding:5px 10px;border:1px solid var(--hf-border);border-radius:2px;color:var(--hf);">フォロー中</div>
-      </div>
-      <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--border);border-radius:2px;">
-        <div style="width:40px;height:40px;border-radius:50%;background:var(--hf-dim);border:1px solid var(--hf-border);display:flex;align-items:center;justify-content:center;font-family:'Josefin Sans',sans-serif;font-weight:100;font-size:13px;color:var(--hf);">鈴</div>
-        <div style="flex:1;"><div style="font-size:14px;font-weight:400;color:var(--text);margin-bottom:2px;">鈴木 健太</div><div style="font-size:11px;color:var(--muted);">Hair Studio LUNA 恵比寿店</div></div>
-        <div style="font-family:'Josefin Sans',sans-serif;font-weight:100;font-size:9px;letter-spacing:0.12em;padding:5px 10px;border:1px solid var(--hf-border);border-radius:2px;color:var(--hf);">フォロー中</div>
-      </div>
+    <div class="screen-eyebrow">// Favorites</div>
+    <div class="screen-title-serif">お気に入り</div>
+    <div class="fav-tabs">
+      <div class="fav-tab active" id="favTab-stylist" onclick="switchFavTab('stylist')">スタイリスト</div>
+      <div class="fav-tab" id="favTab-works" onclick="switchFavTab('works')">保存スタイル</div>
     </div>
-
-    <div style="font-family:'Josefin Sans',sans-serif;font-weight:100;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">保存したスタイル</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;">
-      <div style="aspect-ratio:3/4;background:radial-gradient(ellipse at 50% 30%, #3d2e1e, #1a1410);border-radius:2px;position:relative;overflow:hidden;">
-        <div style="position:absolute;bottom:0;left:0;right:0;padding:20px 10px 10px;background:linear-gradient(transparent,rgba(28,26,24,0.85));">
-          <div style="font-size:10px;color:var(--hf);">¥8,800</div>
-          <div style="font-size:11px;color:var(--text);">大人ショートボブ</div>
-        </div>
-      </div>
-      <div style="aspect-ratio:3/4;background:radial-gradient(ellipse at 50% 25%, #2a2035, #141218);border-radius:2px;position:relative;overflow:hidden;">
-        <div style="position:absolute;bottom:0;left:0;right:0;padding:20px 10px 10px;background:linear-gradient(transparent,rgba(28,26,24,0.85));">
-          <div style="font-size:10px;color:var(--hf);">¥12,000</div>
-          <div style="font-size:11px;color:var(--text);">透け感カラー</div>
-        </div>
+    <div id="favStylistSection">
+      <div class="fav-stylist-list" id="favStylistList"></div>
+    </div>
+    <div id="favWorksSection" style="display:none;">
+      <div class="fav-works-grid" id="favWorksList"></div>
+      <div class="fav-empty" id="favWorksEmpty" style="display:none;">
+        <div class="fav-empty-icon"><svg width="36" height="36" viewBox="0 0 22 22" fill="none"><path d="M11 19C11 19 3 14 3 8.5C3 6 5 4 7.5 4C9 4 10.5 4.8 11 6C11.5 4.8 13 4 14.5 4C17 4 19 6 19 8.5C19 14 11 19 11 19Z" stroke="#d4b8b0" stroke-width="1.5"/></svg></div>
+        <div class="fav-empty-text">気に入った作品を<br>ハートマークで保存できます</div>
       </div>
     </div>
   </div>
   <div class="bottom-nav">
-    <div class="nav-item" id="nav-home-fav" onclick="switchNav('home')"><svg class="nav-icon" viewBox="0 0 22 22" fill="none"><path d="M3 9.5L11 3L19 9.5V19C19 19.6 18.6 20 18 20H14V15H8V20H4C3.4 20 3 19.6 3 19V9.5Z" stroke="#d4b8b0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="nav-label">ホーム</div></div>
+    <div class="nav-item" onclick="switchNav('home')"><svg class="nav-icon" viewBox="0 0 22 22" fill="none"><path d="M3 9.5L11 3L19 9.5V19C19 19.6 18.6 20 18 20H14V15H8V20H4C3.4 20 3 19.6 3 19V9.5Z" stroke="#d4b8b0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="nav-label">ホーム</div></div>
     <div class="nav-item active"><svg class="nav-icon" viewBox="0 0 22 22" fill="none"><path d="M11 19C11 19 3 14 3 8.5C3 6 5 4 7.5 4C9 4 10.5 4.8 11 6C11.5 4.8 13 4 14.5 4C17 4 19 6 19 8.5C19 14 11 19 11 19Z" stroke="#d4b8b0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="nav-label">お気に入り</div></div>
     <div class="nav-item" onclick="switchNav('booking')"><svg class="nav-icon" viewBox="0 0 22 22" fill="none"><rect x="3" y="4" width="16" height="15" rx="2" stroke="#d4b8b0" stroke-width="1.5"/><line x1="7" y1="2" x2="7" y2="6" stroke="#d4b8b0" stroke-width="1.5" stroke-linecap="round"/><line x1="15" y1="2" x2="15" y2="6" stroke="#d4b8b0" stroke-width="1.5" stroke-linecap="round"/><line x1="3" y1="9" x2="19" y2="9" stroke="#d4b8b0" stroke-width="1" stroke-linecap="round"/><circle cx="11" cy="14" r="2" stroke="#d4b8b0" stroke-width="1"/></svg><div class="nav-label">予約</div></div>
     <div class="nav-item" onclick="switchNav('mypage')"><svg class="nav-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="8" r="4" stroke="#d4b8b0" stroke-width="1.5"/><path d="M3 19C3 15.7 6.6 13 11 13C15.4 13 19 15.7 19 19" stroke="#d4b8b0" stroke-width="1.5" stroke-linecap="round"/></svg><div class="nav-label">マイページ</div></div>
@@ -1459,34 +1525,80 @@ html, body {
     </div>
   </div>
   <div class="scroll" style="padding:20px;">
-    <div style="font-family:'Josefin Sans',sans-serif;font-weight:100;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--hf);margin-bottom:6px;">// Bookings</div>
-    <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px;color:var(--text);margin-bottom:24px;">予約管理</div>
+    <div class="screen-eyebrow">// Bookings</div>
+    <div class="screen-title-serif">予約管理</div>
 
-    <div style="font-family:'Josefin Sans',sans-serif;font-weight:100;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">upcoming</div>
-    <div style="background:var(--bg2);border:1px solid var(--hf-border);border-radius:2px;padding:16px;margin-bottom:16px;position:relative;overflow:hidden;">
-      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--hf),transparent);"></div>
-      <div style="font-family:'Josefin Sans',sans-serif;font-weight:100;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--hf);margin-bottom:8px;">確定済み</div>
-      <div style="font-size:16px;font-weight:400;color:var(--text);margin-bottom:4px;">田中 彩花</div>
-      <div style="font-size:12px;color:var(--muted);margin-bottom:12px;">Hair Studio LUNA 渋谷店</div>
-      <div style="display:flex;gap:16px;padding-top:12px;border-top:1px solid var(--border);">
-        <div><div style="font-size:10px;color:var(--muted);margin-bottom:2px;">日時</div><div style="font-size:13px;color:var(--text);">5月26日（月）14:00</div></div>
-        <div><div style="font-size:10px;color:var(--muted);margin-bottom:2px;">メニュー</div><div style="font-size:13px;color:var(--text);">カット + カラー</div></div>
+    <div class="sub-section-label">Upcoming</div>
+    <div class="bk-card" id="upcomingCard">
+      <div class="bk-topline"></div>
+      <div class="bk-status-badge">確定済み</div>
+      <div class="bk-stylist-row">
+        <div class="bk-av">田</div>
+        <div>
+          <div class="bk-stylist-name">田中 彩花</div>
+          <div class="bk-stylist-salon">Hair Studio LUNA 渋谷店</div>
+        </div>
       </div>
+      <div class="bk-detail-grid">
+        <div>
+          <div class="bk-detail-key">日時</div>
+          <div class="bk-detail-val">6月12日（金）14:00</div>
+        </div>
+        <div>
+          <div class="bk-detail-key">メニュー</div>
+          <div class="bk-detail-val">カット + カラー</div>
+        </div>
+        <div>
+          <div class="bk-detail-key">指名料</div>
+          <div class="bk-detail-val">¥1,500</div>
+        </div>
+        <div>
+          <div class="bk-detail-key">合計</div>
+          <div class="bk-detail-val total">¥14,300</div>
+        </div>
+      </div>
+      <button class="bk-cancel-btn" onclick="openCancelModal()">Cancel Reservation</button>
+    </div>
+    <div id="canceledNotice" style="display:none;background:var(--bg2);border:1px solid var(--border);border-radius:2px;padding:20px;margin-bottom:16px;text-align:center;">
+      <div style="font-family:'Josefin Sans',sans-serif;font-weight:100;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">キャンセル完了</div>
+      <div style="font-size:13px;color:var(--muted);margin-bottom:16px;">次の予約はまだありません</div>
+      <button class="bk-rebook-btn" onclick="goTo('s3')">新しく予約する</button>
     </div>
 
-    <div style="font-family:'Josefin Sans',sans-serif;font-weight:100;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">過去の予約</div>
-    <div style="display:flex;flex-direction:column;gap:2px;">
-      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:2px;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;">
-        <div><div style="font-size:13px;font-weight:400;color:var(--text);margin-bottom:2px;">田中 彩花</div><div style="font-size:11px;color:var(--muted);">2026.04.20 · カット + カラー</div></div>
-        <div style="font-size:11px;color:var(--muted);">¥12,800</div>
+    <div class="sub-section-label" style="margin-top:4px;">過去の予約</div>
+    <div class="bk-history-list">
+      <div class="bk-history-row">
+        <div class="bk-av sm">田</div>
+        <div class="bk-history-info">
+          <div class="bk-history-name">田中 彩花</div>
+          <div class="bk-history-meta">2026.04.20 · カット + カラー</div>
+        </div>
+        <div class="bk-history-right">
+          <div class="bk-history-price">¥14,300</div>
+          <button class="bk-rebook-btn" onclick="goTo('s3')">再予約</button>
+        </div>
       </div>
-      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:2px;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;">
-        <div><div style="font-size:13px;font-weight:400;color:var(--text);margin-bottom:2px;">田中 彩花</div><div style="font-size:11px;color:var(--muted);">2026.02.15 · カットのみ</div></div>
-        <div style="font-size:11px;color:var(--muted);">¥7,700</div>
+      <div class="bk-history-row">
+        <div class="bk-av sm">田</div>
+        <div class="bk-history-info">
+          <div class="bk-history-name">田中 彩花</div>
+          <div class="bk-history-meta">2026.02.15 · カットのみ</div>
+        </div>
+        <div class="bk-history-right">
+          <div class="bk-history-price">¥9,200</div>
+          <button class="bk-rebook-btn" onclick="goTo('s3')">再予約</button>
+        </div>
       </div>
-      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:2px;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;">
-        <div><div style="font-size:13px;font-weight:400;color:var(--text);margin-bottom:2px;">鈴木 健太</div><div style="font-size:11px;color:var(--muted);">2025.12.08 · カット + パーマ</div></div>
-        <div style="font-size:11px;color:var(--muted);">¥15,400</div>
+      <div class="bk-history-row">
+        <div class="bk-av sm" style="background:rgba(200,168,130,0.07);border-color:rgba(200,168,130,0.18);color:var(--gold);">鈴</div>
+        <div class="bk-history-info">
+          <div class="bk-history-name">鈴木 健太</div>
+          <div class="bk-history-meta">2025.12.08 · カット + パーマ</div>
+        </div>
+        <div class="bk-history-right">
+          <div class="bk-history-price">¥16,000</div>
+          <button class="bk-rebook-btn" onclick="goTo('s3')">再予約</button>
+        </div>
       </div>
     </div>
   </div>
@@ -1510,32 +1622,74 @@ html, body {
     </div>
   </div>
   <div class="scroll" style="padding:20px;">
-    <!-- プロフィール -->
-    <div style="display:flex;flex-direction:column;align-items:center;padding:24px 0 28px;border-bottom:1px solid var(--border);margin-bottom:20px;">
-      <div style="width:64px;height:64px;border-radius:50%;background:var(--hf-dim);border:2px solid var(--hf-border);display:flex;align-items:center;justify-content:center;font-family:'Josefin Sans',sans-serif;font-weight:100;font-size:22px;color:var(--hf);margin-bottom:12px;">A</div>
-      <div style="font-size:16px;font-weight:400;color:var(--text);margin-bottom:4px;">Ayaka Tanaka</div>
-      <div style="font-size:12px;color:var(--muted);">ayaka@example.com</div>
-    </div>
-
-    <div style="display:flex;flex-direction:column;gap:2px;margin-bottom:20px;">
-      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:2px;">
-        <div style="padding:14px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);">
-          <div style="font-size:13px;font-weight:400;color:var(--text);">プロフィール編集</div>
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polyline points="6,4 10,8 6,12" stroke="#e8e4dc" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.3"/></svg>
+    <div class="mp-profile">
+      <div class="mp-avatar">山</div>
+      <div class="mp-name">山田 麻衣</div>
+      <div class="mp-line-badge">
+        <svg width="8" height="8" viewBox="0 0 10 10"><circle cx="5" cy="5" r="5" fill="rgba(0,195,0,0.75)"/></svg>
+        LINE 連携済み
+      </div>
+      <div class="mp-stats-row">
+        <div class="mp-stat">
+          <div class="mp-stat-num" id="mpFollowCount">2</div>
+          <div class="mp-stat-label">フォロー中</div>
         </div>
-        <div style="padding:14px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);">
-          <div style="font-size:13px;font-weight:400;color:var(--text);">通知設定</div>
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polyline points="6,4 10,8 6,12" stroke="#e8e4dc" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.3"/></svg>
-        </div>
-        <div style="padding:14px 16px;display:flex;justify-content:space-between;align-items:center;">
-          <div style="font-size:13px;font-weight:400;color:var(--text);">支払い方法</div>
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polyline points="6,4 10,8 6,12" stroke="#e8e4dc" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.3"/></svg>
+        <div style="width:1px;height:36px;background:var(--border);"></div>
+        <div class="mp-stat">
+          <div class="mp-stat-num">4</div>
+          <div class="mp-stat-label">来店回数</div>
         </div>
       </div>
     </div>
 
-    <div style="text-align:center;padding:16px 0;">
-      <div style="font-family:'Josefin Sans',sans-serif;font-weight:100;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(232,228,220,0.2);">CYGNUS RESERVE v1.0</div>
+    <div class="sub-section-label">Settings</div>
+    <div class="mp-group">
+      <div class="mp-row" onclick="toggleMpNotif('notifToggle')">
+        <div>
+          <div class="mp-row-label">予約リマインダー</div>
+          <div class="mp-row-sub">前日・2時間前に通知</div>
+        </div>
+        <div class="mp-toggle-track on" id="notifToggle"><div class="mp-toggle-knob"></div></div>
+      </div>
+      <div class="mp-row" onclick="toggleMpNotif('notifToggle2')">
+        <div>
+          <div class="mp-row-label">スタイリスト更新通知</div>
+          <div class="mp-row-sub">新作品・空き枠をお知らせ</div>
+        </div>
+        <div class="mp-toggle-track on" id="notifToggle2"><div class="mp-toggle-knob"></div></div>
+      </div>
+    </div>
+
+    <div class="sub-section-label" style="margin-top:16px;">Account</div>
+    <div class="mp-group">
+      <div class="mp-row">
+        <div class="mp-row-label">プロフィール編集</div>
+        <svg class="mp-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><polyline points="6,4 10,8 6,12" stroke="#e8e4dc" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="mp-row" style="opacity:0.38;cursor:default;">
+        <div>
+          <div class="mp-row-label">Cygnus ID</div>
+          <div class="mp-row-sub">複数サービスで使える共通ID（Coming soon）</div>
+        </div>
+        <div style="font-family:'Josefin Sans',sans-serif;font-weight:100;font-size:8px;letter-spacing:0.12em;padding:3px 7px;border:1px solid var(--border);border-radius:2px;color:var(--muted);">SOON</div>
+      </div>
+    </div>
+
+    <div class="mp-group">
+      <div class="mp-row">
+        <div class="mp-row-label">ヘルプ・サポート</div>
+        <svg class="mp-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><polyline points="6,4 10,8 6,12" stroke="#e8e4dc" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="mp-row">
+        <div class="mp-row-label">プライバシーポリシー</div>
+        <svg class="mp-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><polyline points="6,4 10,8 6,12" stroke="#e8e4dc" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </div>
+
+    <button class="mp-logout-btn">Log out</button>
+
+    <div style="text-align:center;padding:8px 0 4px;">
+      <div style="font-family:'Josefin Sans',sans-serif;font-weight:100;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(232,228,220,0.15);">CYGNUS RESERVE v1.0</div>
     </div>
   </div>
   <div class="bottom-nav">
@@ -1561,6 +1715,9 @@ html, body {
         <path d="M20 65 Q22 45 50 42 Q78 45 80 65 L82 110 Q50 118 18 110 Z" fill="#c8a882" opacity="0.4"/>
       </svg>
     </div>
+    <div class="wm-save-btn" id="wmSaveBtn" onclick="toggleSaveWork(currentWorkIndex)">
+      <svg width="14" height="14" viewBox="0 0 22 22" fill="none"><path d="M11 19C11 19 3 14 3 8.5C3 6 5 4 7.5 4C9 4 10.5 4.8 11 6C11.5 4.8 13 4 14.5 4C17 4 19 6 19 8.5C19 14 11 19 11 19Z" stroke="#d4b8b0" stroke-width="1.5"/></svg>
+    </div>
     <div class="wm-hero-overlay">
       <div class="wm-title" id="wmTitle"></div>
       <div class="wm-tags" id="wmTags"></div>
@@ -1581,6 +1738,31 @@ html, body {
       </div>
     </div>
     <button class="reserve-btn" onclick="bookFromWork()">この作品で予約する</button>
+  </div>
+</div>
+
+<!-- キャンセルモーダル -->
+<div class="cancel-backdrop" id="cancelBackdrop" onclick="closeCancelModal()"></div>
+<div class="cancel-panel" id="cancelPanel">
+  <div class="wm-handle"></div>
+  <div class="cancel-body">
+    <div style="font-family:'Josefin Sans',sans-serif;font-weight:100;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--hf);margin-bottom:4px;">// Cancel Policy</div>
+    <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:17px;color:var(--text);margin-bottom:14px;">キャンセルポリシー</div>
+    <div class="cancel-policy-row">
+      <div class="cancel-policy-key">7日前まで</div>
+      <div class="cancel-policy-val">無料</div>
+    </div>
+    <div class="cancel-policy-row">
+      <div class="cancel-policy-key">3〜6日前</div>
+      <div class="cancel-policy-val">施術料の 30%</div>
+    </div>
+    <div class="cancel-policy-row" style="border-bottom:none;">
+      <div class="cancel-policy-key">前日・当日</div>
+      <div class="cancel-policy-val">施術料の 100%</div>
+    </div>
+    <div style="margin-top:12px;font-size:11px;color:var(--muted);line-height:1.8;">今回の予約（6月12日）のキャンセルは<br><span style="color:var(--text);">無料</span>でお手続きできます。</div>
+    <button class="cancel-confirm-btn" onclick="confirmCancel()">予約をキャンセルする</button>
+    <button class="cancel-back-btn" onclick="closeCancelModal()">戻る</button>
   </div>
 </div>
 
@@ -1724,6 +1906,8 @@ function openWorkModal(index) {
   }
   document.getElementById('wmBackdrop').classList.add('open');
   document.getElementById('wmPanel').classList.add('open');
+  var saveBtn = document.getElementById('wmSaveBtn');
+  if (saveBtn) saveBtn.className = 'wm-save-btn' + (workSaveStates[index] ? ' saved' : '');
 }
 
 function closeWorkModal() {
@@ -1742,6 +1926,106 @@ function bookFromWork() {
   setTimeout(function(){ goTo('s4'); }, 200);
 }
 
+// ── Favorites state ──
+var followedStylists = [
+  { id:'stylist_tanaka_ayaka', av:'田', name:'田中 彩花', salon:'Hair Studio LUNA 渋谷店' },
+  { id:'stylist_suzuki_kenta', av:'鈴', name:'鈴木 健太', salon:'Hair Studio LUNA 恵比寿店' }
+];
+var savedWorks = [
+  { index:0, stylist:'田中 彩花' },
+  { index:3, stylist:'田中 彩花' }
+];
+var workSaveStates = { 0:true, 3:true };
+
+function renderFavStylists() {
+  var list = document.getElementById('favStylistList');
+  if (!list) return;
+  if (followedStylists.length === 0) {
+    list.innerHTML = '<div class="fav-empty"><div class="fav-empty-icon"><svg width="36" height="36" viewBox="0 0 22 22" fill="none"><path d="M11 19C11 19 3 14 3 8.5C3 6 5 4 7.5 4C9 4 10.5 4.8 11 6C11.5 4.8 13 4 14.5 4C17 4 19 6 19 8.5C19 14 11 19 11 19Z" stroke="#d4b8b0" stroke-width="1.5"/></svg></div><div class="fav-empty-text">フォロー中のスタイリストがいません<br>気に入ったスタイリストをフォローしましょう</div></div>';
+    return;
+  }
+  list.innerHTML = followedStylists.map(function(s) {
+    return '<div class="fav-stylist-row" onclick="goTo(\'s3\')">' +
+      '<div class="fav-stylist-av">' + s.av + '</div>' +
+      '<div class="fav-stylist-info"><div class="fav-stylist-name">' + s.name + '</div><div class="fav-stylist-meta">' + s.salon + '</div></div>' +
+      '<div class="fav-following-badge">フォロー中</div>' +
+      '</div>';
+  }).join('');
+}
+
+function switchFavTab(tab) {
+  document.getElementById('favTab-stylist').classList.toggle('active', tab === 'stylist');
+  document.getElementById('favTab-works').classList.toggle('active', tab === 'works');
+  document.getElementById('favStylistSection').style.display = tab === 'stylist' ? '' : 'none';
+  document.getElementById('favWorksSection').style.display = tab === 'works' ? '' : 'none';
+  if (tab === 'works') renderFavWorks();
+}
+
+function renderFavWorks() {
+  var grid = document.getElementById('favWorksList');
+  var empty = document.getElementById('favWorksEmpty');
+  if (!grid) return;
+  if (savedWorks.length === 0) {
+    grid.style.display = 'none';
+    if (empty) empty.style.display = 'block';
+    return;
+  }
+  grid.style.display = '';
+  if (empty) empty.style.display = 'none';
+  grid.innerHTML = savedWorks.map(function(sw) {
+    var work = reserveWorks[sw.index];
+    return '<div class="fav-work-card ' + work.gradient + '" onclick="openWorkModal(' + sw.index + ')">' +
+      '<div class="hair-icon" style="opacity:0.15;"><svg viewBox="0 0 100 120" fill="none">' + work.svg + '</svg></div>' +
+      '<div class="fav-work-heart"><svg width="12" height="12" viewBox="0 0 22 22" fill="#c8a882"><path d="M11 19C11 19 3 14 3 8.5C3 6 5 4 7.5 4C9 4 10.5 4.8 11 6C11.5 4.8 13 4 14.5 4C17 4 19 6 19 8.5C19 14 11 19 11 19Z"/></svg></div>' +
+      '<div class="fav-work-overlay"><div class="fav-work-stylist">' + sw.stylist + '</div><div class="fav-work-title">' + work.title + '</div></div>' +
+      '</div>';
+  }).join('');
+}
+
+function toggleSaveWork(index) {
+  if (workSaveStates[index]) {
+    workSaveStates[index] = false;
+    savedWorks = savedWorks.filter(function(sw) { return sw.index !== index; });
+    document.getElementById('wmSaveBtn').className = 'wm-save-btn';
+  } else {
+    workSaveStates[index] = true;
+    savedWorks.push({ index:index, stylist:'田中 彩花' });
+    document.getElementById('wmSaveBtn').className = 'wm-save-btn saved';
+  }
+}
+
+// ── Cancel modal ──
+function openCancelModal() {
+  document.getElementById('cancelBackdrop').classList.add('open');
+  document.getElementById('cancelPanel').classList.add('open');
+}
+function closeCancelModal() {
+  document.getElementById('cancelBackdrop').classList.remove('open');
+  document.getElementById('cancelPanel').classList.remove('open');
+}
+function confirmCancel() {
+  document.getElementById('upcomingCard').style.display = 'none';
+  document.getElementById('canceledNotice').style.display = 'block';
+  closeCancelModal();
+}
+
+// ── Notification toggles ──
+function toggleMpNotif(id) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  el.classList.toggle('on');
+}
+
+// ── Mypage follow count ──
+function updateMpFollowCount() {
+  var el = document.getElementById('mpFollowCount');
+  if (el) el.textContent = followedStylists.length;
+}
+
+// Init
+renderFavStylists();
+updateMpFollowCount();
+
 // [STUDIO API] GET /api/studio/stylist/{STYLIST_ID}
 // res: { bio, genre_tags, nomination_fee, works: Array<{id,gradient,title,tags}> }
 function fetchStylistProfile(stylistId) {
@@ -1758,7 +2042,7 @@ function fetchStylistProfile(stylistId) {
   });
 }
 
-var stylistFollowed = false;
+var stylistFollowed = true;
 
 function toggleFollow(e) {
   if (e) e.stopPropagation();
@@ -1768,10 +2052,15 @@ function toggleFollow(e) {
   if (stylistFollowed) {
     btn.textContent = 'フォロー中';
     btn.classList.add('followed');
+    var exists = followedStylists.some(function(s) { return s.id === 'stylist_tanaka_ayaka'; });
+    if (!exists) followedStylists.unshift({ id:'stylist_tanaka_ayaka', av:'田', name:'田中 彩花', salon:'Hair Studio LUNA 渋谷店' });
   } else {
     btn.textContent = 'フォロー';
     btn.classList.remove('followed');
+    followedStylists = followedStylists.filter(function(s) { return s.id !== 'stylist_tanaka_ayaka'; });
   }
+  renderFavStylists();
+  updateMpFollowCount();
 }
 
 function switchNav(tab) {
@@ -1784,6 +2073,8 @@ function switchNav(tab) {
   var targetId = screens[tab];
   if (!targetId) return;
   goTo(targetId);
+  if (tab === 'favorites') { renderFavStylists(); }
+  if (tab === 'mypage') { updateMpFollowCount(); }
 }
 
 </script>
